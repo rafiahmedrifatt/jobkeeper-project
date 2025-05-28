@@ -1,12 +1,18 @@
-import { createBrowserRouter } from "react-router";
-import RootLayout from "../layout/RootLayout";
-import Home from "../Pages/Home/Home";
-import Register from "../Pages/Register";
-import Login from "../Pages/Login";
+import {
+    createBrowserRouter,
+} from "react-router";
+import RootLayout from "../layouts/RootLayout";
+import Home from "../pages/Home/Home";
+import Register from "../pages/Register/Register";
+import SignIn from "../pages/SignIn/SignIn";
+import JobDetails from "../pages/JobDetails/JobDetails";
+import PrivateRoute from "../routes/PrivateRoute";
+import JobApply from "../pages/JobApply/JobApply";
+import MyApplications from "../pages/MyApplications/MyApplications";
 
-const Router = createBrowserRouter([
+const router = createBrowserRouter([
     {
-        path: '/',
+        path: "/",
         Component: RootLayout,
         children: [
             {
@@ -14,15 +20,28 @@ const Router = createBrowserRouter([
                 Component: Home
             },
             {
-                path: "register",
+                path:'/jobs/:id',
+                Component: JobDetails,
+                loader: ({params}) => fetch(`http://localhost:3000/jobs/${params.id}`)
+            },
+            {
+                path: 'jobApply/:id',
+                element: <PrivateRoute><JobApply></JobApply></PrivateRoute>
+            },
+            {
+                path: 'myApplications',
+                element: <PrivateRoute><MyApplications></MyApplications></PrivateRoute>
+            },
+            {
+                path: 'register',
                 Component: Register
             },
             {
-                path: "login",
-                Component: Login
-            },
+                path: 'signIn',
+                Component: SignIn
+            }
         ]
-    }
-])
+    },
+]);
 
-export default Router;
+export default router;
