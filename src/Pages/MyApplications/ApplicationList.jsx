@@ -3,6 +3,7 @@ import JobApplicationRow from './JobApplicationRow';
 
 const ApplicationList = ({ myApplicationsPromise }) => {
     const applications = use(myApplicationsPromise);
+    console.log(applications);
     return (
         <div>
             <h3 className="text-3xl">Jobs Applied so far: {applications.length}</h3>
@@ -25,12 +26,12 @@ const ApplicationList = ({ myApplicationsPromise }) => {
                         {
                             applications.map((application, index) => <JobApplicationRow
                                 key={application._id}
-                                index ={index}
+                                index={index}
                                 application={application}
                             ></JobApplicationRow>)
                         }
                     </tbody>
-                    
+
                 </table>
             </div>
 
